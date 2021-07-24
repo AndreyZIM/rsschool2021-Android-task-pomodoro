@@ -94,4 +94,14 @@
         style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
         app:iconTint="?colorOnSecondary"/>
 
+
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        android:src="@drawable/tomato"
+        app:tint="@color/pink_400" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

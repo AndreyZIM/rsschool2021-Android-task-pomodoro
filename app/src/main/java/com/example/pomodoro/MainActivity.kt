@@ -94,13 +94,15 @@ class MainActivity : AppCompatActivity(), StopwatchListener, LifecycleObserver {
                 else dialogBinding.sec.text.toString().toLong()
             val min = if (dialogBinding.min.text.isEmpty()) 0L
                 else dialogBinding.min.text.toString().toLong()
-            if (sec == 0L && min == 0L)
+            val hour = if (dialogBinding.hour.text.isEmpty()) 0L
+            else dialogBinding.hour.text.toString().toLong()
+            if (sec == 0L && min == 0L && hour == 0L)
                 Toast.makeText(context, "At least seconds must be more then zero!", Toast.LENGTH_SHORT).show()
 
-            else if (sec >= 59L || min >= 59L)
+            else if (sec >= 59L || min >= 59L || hour >= 99L)
                 Toast.makeText(context, "The value is too big!", Toast.LENGTH_SHORT).show()
             else {
-                val time: Long = min * 60000 + sec * 1000
+                val time: Long = hour * 3600000 + min * 60000 + sec * 1000
                 stopwatches.add(Stopwatch(nextId++, time, time, 0L, time, false))
                 stopwatchAdapter.submitList(stopwatches.toList())
                 dialog.dismiss()

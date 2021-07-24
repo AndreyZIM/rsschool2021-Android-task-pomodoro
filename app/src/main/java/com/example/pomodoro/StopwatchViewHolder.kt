@@ -3,6 +3,7 @@ package com.example.pomodoro
 import android.content.Context
 import android.graphics.drawable.AnimationDrawable
 import android.os.CountDownTimer
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -42,10 +43,10 @@ class StopwatchViewHolder(
     private fun preResetTimer(stopwatch: Stopwatch) {
         binding.startStopButton.setIconResource(R.drawable.ic_baseline_refresh_24)
         binding.cardView.setCardBackgroundColor(
-            ContextCompat.getColor(context, R.color.grey_400)
+            ContextCompat.getColor(binding.container.context, R.color.grey_400)
         )
         binding.startStopButton.setBackgroundColor(
-            ContextCompat.getColor(context, R.color.pink_black)
+            ContextCompat.getColor(binding.container.context, R.color.pink_black)
         )
         binding.startStopButton.setIconTintResource(R.color.pink_100)
         binding.progressBar.setCurrent(0L)
@@ -55,10 +56,10 @@ class StopwatchViewHolder(
             binding.startStopButton.setIconResource(R.drawable.ic_baseline_play_arrow_24)
             binding.startStopButton.setIconTintResource(R.color.pink_black)
             binding.startStopButton.setBackgroundColor(
-                ContextCompat.getColor(context, R.color.pink_400)
+                ContextCompat.getColor(binding.container.context, R.color.pink_400)
             )
             binding.cardView.setCardBackgroundColor(
-                ContextCompat.getColor(context, R.color.pink_300)
+                ContextCompat.getColor(binding.container.context, R.color.pink_300)
             )
             stopwatch.currentMs = stopwatch.startMs
             binding.timer.text = stopwatch.currentMs.displayTime()
@@ -66,14 +67,21 @@ class StopwatchViewHolder(
                 listener.start(stopwatch.id)
             }
         }
-        binding.indicator.isVisible = false
+        binding.indicator.visibility = View.INVISIBLE
         (binding.indicator.background as? AnimationDrawable)?.stop()
     }
 
     private fun stopTimer() {
         binding.startStopButton.setIconResource(R.drawable.ic_baseline_play_arrow_24)
+        binding.startStopButton.setIconTintResource(R.color.pink_black)
+        binding.startStopButton.setBackgroundColor(
+            ContextCompat.getColor(binding.container.context, R.color.pink_400)
+        )
+        binding.cardView.setCardBackgroundColor(
+            ContextCompat.getColor(binding.container.context, R.color.pink_300)
+        )
         timer?.cancel()
-        binding.indicator.isVisible = false
+        binding.indicator.visibility = View.INVISIBLE
         (binding.indicator.background as? AnimationDrawable)?.stop()
     }
 
@@ -81,16 +89,16 @@ class StopwatchViewHolder(
         binding.startStopButton.setIconResource(R.drawable.ic_baseline_pause_24)
         binding.startStopButton.setIconTintResource(R.color.pink_black)
         binding.startStopButton.setBackgroundColor(
-            ContextCompat.getColor(context, R.color.pink_400)
+            ContextCompat.getColor(binding.container.context, R.color.pink_400)
         )
         binding.cardView.setCardBackgroundColor(
-            ContextCompat.getColor(context, R.color.pink_300)
+            ContextCompat.getColor(binding.container.context, R.color.pink_300)
         )
         timer?.cancel()
         timer = getCountDownTimer(stopwatch)
         timer?.start()
 
-        binding.indicator.isVisible = true
+        binding.indicator.visibility = View.VISIBLE
         (binding.indicator.background as? AnimationDrawable)?.start()
     }
 
@@ -113,7 +121,7 @@ class StopwatchViewHolder(
 
     companion object {
 
-        private const val UNIT_TEN_MS = 15L
+        private const val UNIT_TEN_MS = 10L
         private const val PERIOD = 1000L * 60L * 60L * 24L
 
     }

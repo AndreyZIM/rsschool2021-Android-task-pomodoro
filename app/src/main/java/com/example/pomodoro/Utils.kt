@@ -1,6 +1,6 @@
 package com.example.pomodoro
 
-const val START_TIME = "00:00"
+const val START_TIME = "00:00:00"
 const val INVALID = "INVALID"
 const val COMMAND_START = "COMMAND_START"
 const val COMMAND_STOP = "COMMAND_STOP"
@@ -12,10 +12,12 @@ fun Long.displayTime(): String {
     if (this <= 0L) {
         return START_TIME
     }
+
+    val h = this / 1000 / 3600
     val m = this / 1000 % 3600 / 60
     val s = this / 1000 % 60
 
-    return "${displaySlot(m)}:${displaySlot(s)}"
+    return "${displaySlot(h)}:${displaySlot(m)}:${displaySlot(s)}"
 }
 
 private fun displaySlot(count: Long): String {
